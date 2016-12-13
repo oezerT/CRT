@@ -15,7 +15,8 @@ public class CRT {
     }
 
     public BigInteger pow(BigInteger basis, BigInteger exponent) {
-        
+    	long startTime = System.nanoTime();    
+
     	BigInteger a = basis.modPow(exponent.mod(p.subtract(ONE)), p);
     	BigInteger b = basis.modPow(exponent.mod(q.subtract(ONE)), q);
     	BigInteger[] eGCDResult = ExtendedGreatestCommonDivisor.run(p,q);
@@ -23,6 +24,8 @@ public class CRT {
 		BigInteger diff = a.subtract(b);
 		BigInteger v = (diff.multiply(z)).mod(p);
 		BigInteger x =  (v.multiply(q)).add(b);
+		long elapsedTime = System.nanoTime() - startTime;    
+		System.out.println("CRT-Time: " + elapsedTime);
         return x;
     }
 }
