@@ -7,9 +7,11 @@ public class CRT {
 
     private BigInteger p;
     private BigInteger q;
+    private BigInteger eGCDResult;
     private final BigInteger ONE = BigInteger.ONE;
 
-    public CRT(BigInteger p, BigInteger q) {
+    public CRT(BigInteger p, BigInteger q, BigInteger eGCDResult) {
+        this.eGCDResult = eGCDResult;
         this.p = p;
         this.q = q;
     }
@@ -19,13 +21,12 @@ public class CRT {
 
     	BigInteger a = basis.modPow(exponent.mod(p.subtract(ONE)), p);
     	BigInteger b = basis.modPow(exponent.mod(q.subtract(ONE)), q);
-    	BigInteger[] eGCDResult = ExtendedGreatestCommonDivisor.run(p,q);
-		BigInteger z =  eGCDResult[1];
+		BigInteger z =  eGCDResult;
 		BigInteger diff = a.subtract(b);
 		BigInteger v = (diff.multiply(z)).mod(p);
 		BigInteger x =  (v.multiply(q)).add(b);
 		long elapsedTime = System.nanoTime() - startTime;    
-		System.out.println("CRT-Time: " + elapsedTime);
+		//System.out.println("CRT-Time: " + elapsedTime);
         return x;
     }
 }
