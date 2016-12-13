@@ -7,6 +7,7 @@ public class CRT {
 
     BigInteger p;
     BigInteger q;
+    final BigInteger ONE = BigInteger.ONE;
 
     public CRT(BigInteger p, BigInteger q) {
         this.p = p;
@@ -14,7 +15,14 @@ public class CRT {
     }
 
     public BigInteger pow(BigInteger basis, BigInteger exponent) {
-        //TODO:
-        return null;
+        
+    	BigInteger a = basis.modPow(exponent.mod(p.subtract(ONE)), p);
+    	BigInteger b = basis.modPow(exponent.mod(q.subtract(ONE)), q);
+    	BigInteger[] eGCDResult = ExtendedGreatestCommonDivisor.run(p,q);
+		BigInteger z =  eGCDResult[1];
+		BigInteger diff = a.subtract(b);
+		BigInteger v = (diff.multiply(z)).mod(p);
+		BigInteger x =  (v.multiply(q)).add(b);
+        return x;
     }
 }
