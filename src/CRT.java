@@ -5,9 +5,9 @@ import java.math.BigInteger;
  */
 public class CRT {
 
-    BigInteger p;
-    BigInteger q;
-    final BigInteger ONE = BigInteger.ONE;
+    private BigInteger p;
+    private BigInteger q;
+    private final BigInteger ONE = BigInteger.ONE;
 
     public CRT(BigInteger p, BigInteger q) {
         this.p = p;
